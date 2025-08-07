@@ -2,11 +2,11 @@ name: Build
 on: [ push ]
 jobs:
   gradle:
-    strategy:
-      matrix:
-        os: [ ubuntu-latest ]
-    runs-on: ${{ matrix.os }}
-#    runs-on: self-hosted
+    #strategy:
+    #  matrix:
+    #    os: [ ubuntu-latest ]
+    #runs-on: ${{ matrix.os }}
+    runs-on: self-hosted
     steps:
       - name: checkout
         uses: actions/checkout@v2
