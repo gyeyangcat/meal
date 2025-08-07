@@ -50,5 +50,5 @@ sourceSets.getByName("main") {
 }
 
 java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(21))
+    toolchain.languageVersion.set(JavaLanguageVersion.of(11))
 }
