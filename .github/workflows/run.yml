@@ -24,11 +24,8 @@ jobs:
         run: ./gradlew shadowJar
 
       - name: release
-        uses: marvinpinto/action-automatic-releases@latest
+        uses: softprops/action-gh-release@v2
         with:
-          title: "jar archive"
-          automatic_release_tag: "latest"
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          tag_name: latest
           files: |
             build/libs/*.jar
-          prerelease: false
