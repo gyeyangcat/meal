@@ -1,0 +1,36 @@
+name: Scheduled run
+on:
+  workflow_dispatch:
+      inputs:
+         logLevel:
+            description: 'Log level'     
+            required: true
+            default: 'warning'
+         tags:
+            description: 'Test scenario tags'
+  schedule:
+    - cron: '0 15 * * *'
+env:
+  INSTARGRAM_USERNAME: ${{ secrets.INSTARGRAM_USERNAME }}
+  INSTARGRAM_PASSWORD: ${{ secrets.INSTARGRAM_PASSWORD }}
+  OTP_SECRET: ${{ secrets.OTP_SECRET }}
+  NEIS_KEY: ${{ secrets.NEIS_KEY }}
+jobs:
+  gradle:
+    runs-on: self-hosted
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - uses: robinraju/release-downloader@v1.4
+        with:
+          latest: true
+          fileName: "*.jar"
+          tarBall: false
+          zipBall: false
+          out-file-path: "${{ github.workspace }}/download/"
+          token: "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Run jar
+        run: |
+          ARTIFACT=$(find download -type f -name "**.jar")
+          java -jar $ARTIFACT
